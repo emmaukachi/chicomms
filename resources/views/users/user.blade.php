@@ -1,1 +1,6 @@
-<h1>Welcome to my laravel app</h1>
+@extends('layouts.app')
+
+@section('content')
+
+@endsection
+

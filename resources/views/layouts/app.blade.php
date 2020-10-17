@@ -18,6 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('fontawesome-free-5.15.1-web/css/all.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -85,9 +86,11 @@
                             </div> 
                             <div class="col-lg-8">
                             <form action="" class="form-horizontal" method="post">
+                            {{csrf_field()}}
                                 <div class="form-group row">
                                     <div class="col-lg-6">
                                         <input type="text" name="states" id="state" class="form-control" placeholder="Enter State" style="margin-top: 5px;">
+                                        <div id="stateList"></div>
                                     </div>
                                     <div class="col-lg-4">
                                         <select name="categories" id="categories" class="form-control dropdown" style="margin-top: 5px;">
@@ -119,3 +122,30 @@
     </div>
 </body>
 </html>
+<!--displays List of states in a dropdown menu-->
+<script src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#state').keyup(function(){
+            var data;
+            var nigerianstates = $(this).val();
+            if(nigerianstates != ''){
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url: "{{ route('searchlocation.fetch')}}",
+                    method: "POST",
+                    data: {nigerianstates:nigerianstates, _token:_token},
+                    success: function(data){
+                        $('#stateList').fadeIn();
+                        $('#stateList').html(data);
+                    }
+                });
+            }
+            else{
+                $('#stateList').fadeOut();
+                $('#stateList').html(data);
+                   
+            }
+        });
+    });
+</script>

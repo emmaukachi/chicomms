@@ -20,3 +20,4 @@ Route::get('/','UsersController@index');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('UsersController/fetch', 'UsersController@fetch')->name('searchlocation.fetch');
